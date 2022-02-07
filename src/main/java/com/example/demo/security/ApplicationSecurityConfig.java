@@ -44,6 +44,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) //нужно добавлять токен X-XSRF-TOKEN в хедер. Получается из предыдущего гет запроса
 //                .and()
+                .cors().and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
