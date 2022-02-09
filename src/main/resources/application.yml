@@ -1,0 +1,12 @@
+application:
+  jwt:
+    secretKey: "securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure"
+    tokenPrefix: "Bearer "
+    tokenExpirationAfterDays: 14
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost/mydb-2}
+    username: ${DB_USER:user}
+    password: ${DB_PASSWORD:pass}
+  jpa:
+    generate-ddl: true

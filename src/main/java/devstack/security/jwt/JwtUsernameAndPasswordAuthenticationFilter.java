@@ -1,7 +1,8 @@
-package com.example.demo.jwt;
+package devstack.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,17 +18,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
+@AllArgsConstructor
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
-
-    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager, JwtConfig jwtConfig, SecretKey secretKey) {
-        this.authenticationManager = authenticationManager;
-        this.jwtConfig = jwtConfig;
-        this.secretKey = secretKey;
-    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -60,7 +56,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .compact();
 
         response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
-        response.addHeader( "Access-Control-Expose-Headers", "*");
-//        super.successfulAuthentication(request, response, chain, authResult);
+        response.addHeader("Access-Control-Expose-Headers", "*");
     }
 }
