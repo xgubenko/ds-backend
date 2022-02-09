@@ -28,12 +28,13 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         String username = signupRequest.getUsername().toLowerCase();
         String password = passwordEncoder.encode(signupRequest.getPassword());
+        String email = signupRequest.getEmail().toLowerCase();
 
         if (!userRepository.getAllByUsername(username).isEmpty()) {
             throw new Exception(String.format("The user \"%s\" already exists!", username));
         }
 
-        ApplicationUser user = new ApplicationUser(username, password);
+        ApplicationUser user = new ApplicationUser(username, password, email);
         user.setGrantedAuthorities(ApplicationUserRole.STUDENT.getGrantedAuthorities());
         user.setEnabled(true);
         user.setAccountNonExpired(true);

@@ -26,14 +26,16 @@ public class ApplicationUser implements UserDetails {
     private Set<SimpleGrantedAuthority> grantedAuthorities;
     private String password;
     private String username;
+    private String email;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
 
-    public ApplicationUser(String username, String password) {
+    public ApplicationUser(String username, String password, String email) {
         this.password = password;
         this.username = username;
+        this.email = email;
         this.grantedAuthorities = ApplicationUserRole.STUDENT.getGrantedAuthorities();
     }
 
@@ -41,6 +43,5 @@ public class ApplicationUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
     }
-
 
 }
