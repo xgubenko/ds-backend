@@ -21,14 +21,15 @@ public class SignupController {
     private final UserDetailsService userDetailsService;
 
     @PostMapping
-    public ResponseEntity<ApplicationUser> signUp(@RequestBody SignupRequest signupRequest) {
+    public ResponseEntity signUp(@RequestBody SignupRequest signupRequest) {
 
         try {
             ApplicationUser user = userDetailsService.registerNewUserAccount(signupRequest);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
             log.warn(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
     }
 }
