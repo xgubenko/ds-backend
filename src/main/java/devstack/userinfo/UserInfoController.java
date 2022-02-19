@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/info")
@@ -45,9 +46,11 @@ public class UserInfoController {
     @GetMapping("/image")
     public ResponseEntity<byte[]> getAvatar(Principal principal) {
             ApplicationUser user = (ApplicationUser) userDetailsService.loadUserByUsername(principal.getName());
+            UserAvatar avatar = fileService.getUserAvatarByUserId(user.getId());
 
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(fileService.getUserAvatarByUserId(user.getId()).getData());
+                    .header("Content-Type", avatar.getContentType())
+                    .body(avatar.getData());
     }
 
 }
