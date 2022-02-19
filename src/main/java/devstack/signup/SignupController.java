@@ -25,7 +25,7 @@ public class SignupController {
 
         try {
             ApplicationUser user = userDetailsService.registerNewUserAccount(signupRequest);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             log.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
