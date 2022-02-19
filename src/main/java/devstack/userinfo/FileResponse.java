@@ -7,13 +7,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserInfoResponse {
+@AllArgsConstructor
+public class FileResponse {
 
-    private String username;
-    private String email;
-    private Boolean isEnabled;
-//    private UserAvatar userAvatar;
-
+    private String id;
+    private String name;
+    private Long size;
+    private String url;
+    private String contentType;
 }
