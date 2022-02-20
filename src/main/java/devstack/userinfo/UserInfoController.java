@@ -50,7 +50,7 @@ public class UserInfoController {
 
             return ResponseEntity.status(HttpStatus.OK)
                     .header("Content-Type", avatar.getContentType())
-                    .body(avatar.getData());
+                    .body(Base64.getEncoder().encode(avatar.getData()));
     }
 
 }

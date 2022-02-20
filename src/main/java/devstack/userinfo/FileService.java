@@ -18,21 +18,23 @@ public class FileService {
     private final UserAvatarRepository userAvatarRepository;
 
     public void saveUserAvatar(ApplicationUser user, MultipartFile file) throws IOException {
-        UserAvatar fileEntity = new UserAvatar();
-        fileEntity.setName(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
-        fileEntity.setContentType(file.getContentType());
-        fileEntity.setData(file.getBytes());
-        fileEntity.setSize(file.getSize());
-        fileEntity.setUser(user);
 
-        userAvatarRepository.save(fileEntity);
+        userAvatarRepository.deleteByUserId(user.getId());
+
+        UserAvatar avatar = new UserAvatar();
+        avatar.setName(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        avatar.setContentType(file.getContentType());
+        avatar.setData(file.getBytes());
+        avatar.setSize(file.getSize());
+        avatar.setUser(user);
+
+        userAvatarRepository.save(avatar);
     }
 
     public Optional<UserAvatar> getFile(Long id) {
         return userAvatarRepository.findById(id);
     }
 
-    @Transactional
     public UserAvatar getUserAvatarByUserId(Long id) {
         return userAvatarRepository.findByUserId(id);
     }
